@@ -36,61 +36,95 @@ ALLOWED_HOSTS = ['*']
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'gallery/styles.css' %}">
-    <script src="{% static 'gallery/scripts.js' %}" defer></script>
-    <title>Interactive Image Gallery</title>
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Interactive Image Gallery</h1>
-    <div class="gallery">
-        {% for image in images %}
-            <img src="{{ image.image.url }}" alt="{{ image.title }}">
-        {% endfor %}
-    </div>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="gallery">
+        <div class="gallery-container">
+            <img src="image1.jpg" alt="Image 1">
+            <img src="image2.jpg" alt="Image 2">
+            <img src="image3.jpg" alt="Image 3">
+            <img src="image4.jpg" alt="Image 4">
+            <img src="image5.jpg" alt="Image 5">
+            <img src="image6.jpg" alt="Image 6">
+            <img src="image7.jpg" alt="Image 7">
+            <img src="image8.jpg" alt="Image 8">
+            <!-- Add more images as needed -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Your Website</p>
+    </footer>
 </body>
 </html>
+
 
 ~~~
 ### Styles.css
 ~~~
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
-.gallery {
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    padding: 10px;
 }
-.gallery img {
-    margin: 10px;
-    width: 200px; /* Adjust as needed */
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 20px;
+}
+
+.gallery-container img {
+    width: 100%;
     height: auto;
-    transition: transform 0.3s;
+    border-radius: 8px;
 }
-.gallery img:hover {
-    transform: scale(1.1);
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #f1f1f1;
+    margin-top: 20px;
 }
 
 ~~~
-### scripts.js
-~~~
-const images = document.querySelectorAll('.gallery img');
-images.forEach(img => {
-    img.addEventListener('click', () => {
-        const src = img.getAttribute('src');
-        const lightbox = document.createElement('div');
-        lightbox.className = 'lightbox';
-        lightbox.innerHTML = `<img src="${src}" alt="Lightbox Image">`;
-        document.body.appendChild(lightbox);
-        lightbox.addEventListener('click', () => {
-            document.body.removeChild(lightbox);
-        });
-    });
-});
 
-~~~
 ### models.py
 ~~~
 from django.db import models
